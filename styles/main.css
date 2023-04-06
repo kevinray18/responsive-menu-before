@@ -94,39 +94,38 @@ main {
 }
 
 nav {
-  margin: 2rem 1.5rem 6rem;
+  visibility: hidden;
 }
 
-nav ul {
+.close nav {
+  visibility: visible;
+  position: fixed;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  inset: 0;
+  background-color: var(--space-cadet);
+  margin-bottom: 2 rem;
+}
+
+.close nav ul {
+  display: flex;
+  flex-direction: column;
   list-style-type: none;
   margin: 0 auto;
   padding: 0;
   max-width: 80rem;
 }
 
-nav a {
+.close nav a {
   display: block;
+  color: #fff;
   padding: 1rem;
   font-size: 1.4rem;
 }
 
 nav a:not([href]) {
   color: var(--roman-silver);
-}
-
-nav a::after {
-  content: "";
-  display: block;
-  width: calc(100% + 12px);
-  height: 3px;
-  margin-left: -6px;
-  margin-top: 6px;
-  background-color: var(--space-cadet-light);
-  transform: scale(0);
-  transition: transform 200ms ease-in, color 300ms ease-in;
-  transform-origin: right;
 }
 
 nav a[href]:hover {
@@ -138,6 +137,45 @@ nav a[href]:hover::after {
   transform-origin: left;
 }
 
+/* default menu icon on mobile is a fixed round icon in the top left of the viewport */
+.menu-icon {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  padding: 1.5rem;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #711f21;
+  z-index: 2;
+}
+
+.menu-icon line {
+  stroke: #fff;
+  stroke-width: 3px;
+  stroke-linecap: round;
+  transform-origin: center;
+  transition: transform 300ms ease;
+}
+
+.menu-icon line:first-child {
+  transform: translateY(16%);
+}
+
+.menu-icon line:last-child {
+  transform: translateY(-16%);
+}
+
+/* JavaScript toggles a "close" class on the <nav> when the menu-icon is clicked */
+
+.close line:first-child {
+  transform: rotate(135deg);
+}
+
+.close line:last-child {
+  transform: rotate(-135deg);
+}
+
 .panel {
   display: flex;
   flex-direction: column;
@@ -145,6 +183,56 @@ nav a[href]:hover::after {
 }
 
 @media (min-width: 601px) {
+  .menu-icon {
+    display: none;
+  }
+
+  nav {
+    visibility: visible;
+    margin: 2rem 1.5rem 6rem;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 80rem;
+  }
+
+  nav a {
+    display: block;
+    padding: 1rem;
+    font-size: 1.4rem;
+  }
+
+  nav a:not([href]) {
+    color: var(--roman-silver);
+  }
+
+  nav a::after {
+    content: "";
+    display: block;
+    width: calc(100% + 12px);
+    height: 3px;
+    margin-left: -6px;
+    margin-top: 6px;
+    background-color: var(--space-cadet-light);
+    transform: scale(0);
+    transition: transform 200ms ease-in, color 300ms ease-in;
+    transform-origin: right;
+  }
+
+  nav a[href]:hover {
+    color: var(--space-cadet-light);
+  }
+
+  nav a[href]:hover::after {
+    transform: scale(1);
+    transform-origin: left;
+  }
+
   .panel {
     flex-direction: row;
   }
